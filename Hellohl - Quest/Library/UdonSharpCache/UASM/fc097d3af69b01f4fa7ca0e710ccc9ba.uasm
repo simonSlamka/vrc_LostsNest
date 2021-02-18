@@ -1,0 +1,102 @@
+.data_start
+
+    .export udonBehaviour
+    .export eventName
+    .export networkEvent
+    .export target
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    networkEvent: %SystemBoolean, null
+    target: %VRCUdonCommonInterfacesNetworkEventTarget, null
+    eventName: %SystemString, null
+    udonBehaviour: %VRCUdonUdonBehaviour, null
+    __0_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_intnl_VRCUdonCommonInterfacesNetworkEventTarget: %VRCUdonCommonInterfacesNetworkEventTarget, null
+    __0_intnl_SystemString: %SystemString, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Custom_Event : UdonSharpBehaviour
+.code_start
+        
+         #  public UdonBehaviour udonBehaviour; //the udonebehaviour you will be calling the event on
+        
+         #  public string eventName; //string name of the event.
+        
+         #  public bool networkEvent; //bool of wheather the event gets called localy or with a network event.
+        
+         #  public VRC.Udon.Common.Interfaces.NetworkEventTarget target; //if using a network event who the target will be.
+        
+         #  public virtual void Interact() //get called when the player interacts with a collider.
+    .export _interact
+        
+    _interact:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  SendEvent(); //callling a method in the same script.
+        PUSH, __0_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x00000034
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void SendEvent() //the event sending out the udonbehaviour event.
+    .export SendEvent
+        
+    SendEvent:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (networkEvent)
+        PUSH, networkEvent
+        JUMP_IF_FALSE, 0x00000094
+        
+         #  {
+        
+         #  udonBehaviour.SendCustomNetworkEvent(target, eventName);
+        PUSH, udonBehaviour
+        PUSH, eventName
+        PUSH, __0_intnl_SystemString
+        COPY #  Copy-on-write symbol value dirtied
+        PUSH, target
+        PUSH, __0_intnl_VRCUdonCommonInterfacesNetworkEventTarget
+        COPY #  Copy-on-write symbol value dirtied
+        PUSH, target
+        PUSH, eventName
+        EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomNetworkEvent__VRCUdonCommonInterfacesNetworkEventTarget_SystemString__SystemVoid"
+        JUMP, 0x000000C0
+        
+         #  else
+        
+         #  {
+        
+         #  udonBehaviour.SendCustomEvent(eventName);
+        PUSH, udonBehaviour
+        PUSH, eventName
+        PUSH, __0_intnl_SystemString
+        COPY #  Copy-on-write symbol value dirtied
+        PUSH, eventName
+        EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

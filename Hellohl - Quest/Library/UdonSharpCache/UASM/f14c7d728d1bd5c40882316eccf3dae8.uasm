@@ -1,0 +1,237 @@
+.data_start
+
+    .export timeZoneID
+    .export format
+    .export uiDisplay
+    .export textMeshDisplay
+    .export autoupdate
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    autoupdate: %SystemBoolean, null
+    format: %SystemString, null
+    timeZoneID: %SystemString, null
+    uiDisplay: %UnityEngineUIText, null
+    textMeshDisplay: %TMProTextMeshPro, null
+    timezone: %SystemTimeZoneInfo, null
+    __0_tempstring_String: %SystemString, null
+    __1_tempstring_String: %SystemString, null
+    __0_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __1_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __1_intnl_SystemBoolean: %SystemBoolean, null
+    __2_intnl_SystemBoolean: %SystemBoolean, null
+    __3_intnl_SystemBoolean: %SystemBoolean, null
+    __4_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_SystemDateTime: %SystemDateTime, null
+    __1_intnl_SystemDateTime: %SystemDateTime, null
+    __2_intnl_SystemDateTime: %SystemDateTime, null
+    __3_intnl_SystemDateTime: %SystemDateTime, null
+    __0_intnl_SystemString: %SystemString, null
+    __1_intnl_SystemString: %SystemString, null
+    __2_intnl_SystemString: %SystemString, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+
+.data_end
+
+        
+         #  using System;
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using UnityEngine.UI; //needs to be added to interact with unity ui components.
+        
+         #  using TMPro;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class DateTime_UI : UdonSharpBehaviour
+.code_start
+        
+         #  public string timeZoneID = string.Empty;
+        
+         #  public string format = "hh:mm:ss tt";
+        
+         #  public Text uiDisplay;
+        
+         #  public TextMeshPro textMeshDisplay;
+        
+         #  public bool autoupdate = true;
+        
+         #  private TimeZoneInfo timezone;
+        
+         #  void Start()
+    .export _start
+        
+    _start:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if(timeZoneID == string.Empty)
+        PUSH, __0_intnl_SystemString
+        EXTERN, "SystemString.__get_Empty__SystemString"
+        PUSH, timeZoneID
+        PUSH, __0_intnl_SystemString
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "SystemString.__op_Equality__SystemString_SystemString__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000060
+        
+         #  {
+        
+         #  timezone = TimeZoneInfo.Local;
+        PUSH, timezone
+        EXTERN, "SystemTimeZoneInfo.__get_Local__SystemTimeZoneInfo"
+        JUMP, 0x00000078
+        
+         #  else
+        
+         #  {
+        
+         #  timezone = TimeZoneInfo.FindSystemTimeZoneById(timeZoneID);
+        PUSH, timeZoneID
+        PUSH, timezone
+        EXTERN, "SystemTimeZoneInfo.__FindSystemTimeZoneById__SystemString__SystemTimeZoneInfo"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  private void Update()
+    .export _update
+        
+    _update:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (autoupdate)
+        PUSH, autoupdate
+        JUMP_IF_FALSE, 0x00000114
+        
+         #  {
+        
+         #  if (uiDisplay)
+        PUSH, uiDisplay
+        PUSH, __1_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000000DC
+        
+         #  {
+        
+         #  UIDisplayTime();
+        PUSH, __0_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x00000130
+        
+         #  if (textMeshDisplay)
+        PUSH, textMeshDisplay
+        PUSH, __2_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __2_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000114
+        
+         #  {
+        
+         #  TextmeshProDisplayTime();
+        PUSH, __1_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x000001FC
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void UIDisplayTime()
+    .export UIDisplayTime
+        
+    UIDisplayTime:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  string tempstring = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timezone).ToString(format);
+        PUSH, __0_intnl_SystemDateTime
+        EXTERN, "SystemDateTime.__get_UtcNow__SystemDateTime"
+        PUSH, __0_intnl_SystemDateTime
+        PUSH, timezone
+        PUSH, __1_intnl_SystemDateTime
+        EXTERN, "SystemTimeZoneInfo.__ConvertTimeFromUtc__SystemDateTime_SystemTimeZoneInfo__SystemDateTime"
+        PUSH, __1_intnl_SystemDateTime
+        PUSH, format
+        PUSH, __0_tempstring_String
+        EXTERN, "SystemDateTime.__ToString__SystemString__SystemString"
+        
+         #  if(uiDisplay.text != tempstring)
+        PUSH, uiDisplay
+        PUSH, __1_intnl_SystemString
+        EXTERN, "UnityEngineUIText.__get_text__SystemString"
+        PUSH, __1_intnl_SystemString
+        PUSH, __0_tempstring_String
+        PUSH, __3_intnl_SystemBoolean
+        EXTERN, "SystemString.__op_Inequality__SystemString_SystemString__SystemBoolean"
+        PUSH, __3_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000001E0
+        
+         #  {
+        
+         #  uiDisplay.text = tempstring;
+        PUSH, uiDisplay
+        PUSH, __0_tempstring_String
+        EXTERN, "UnityEngineUIText.__set_text__SystemString__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void TextmeshProDisplayTime()
+    .export TextmeshProDisplayTime
+        
+    TextmeshProDisplayTime:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  string tempstring = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timezone).ToString(format);
+        PUSH, __2_intnl_SystemDateTime
+        EXTERN, "SystemDateTime.__get_UtcNow__SystemDateTime"
+        PUSH, __2_intnl_SystemDateTime
+        PUSH, timezone
+        PUSH, __3_intnl_SystemDateTime
+        EXTERN, "SystemTimeZoneInfo.__ConvertTimeFromUtc__SystemDateTime_SystemTimeZoneInfo__SystemDateTime"
+        PUSH, __3_intnl_SystemDateTime
+        PUSH, format
+        PUSH, __1_tempstring_String
+        EXTERN, "SystemDateTime.__ToString__SystemString__SystemString"
+        
+         #  if (textMeshDisplay.text != tempstring)
+        PUSH, textMeshDisplay
+        PUSH, __2_intnl_SystemString
+        EXTERN, "TMProTextMeshPro.__get_text__SystemString"
+        PUSH, __2_intnl_SystemString
+        PUSH, __1_tempstring_String
+        PUSH, __4_intnl_SystemBoolean
+        EXTERN, "SystemString.__op_Inequality__SystemString_SystemString__SystemBoolean"
+        PUSH, __4_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000002AC
+        
+         #  {
+        
+         #  textMeshDisplay.text = tempstring;
+        PUSH, textMeshDisplay
+        PUSH, __1_tempstring_String
+        EXTERN, "TMProTextMeshPro.__set_text__SystemString__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

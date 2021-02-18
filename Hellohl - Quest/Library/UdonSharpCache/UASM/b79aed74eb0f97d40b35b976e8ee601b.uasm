@@ -1,0 +1,333 @@
+.data_start
+
+    .export speed
+    .export flydirection
+    .export floatInAir
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    floatInAir: %SystemBoolean, null
+    speed: %SystemSingle, null
+    flydirection: %UnityEngineTransform, null
+    triggerdown: %SystemBoolean, null
+    gravitysave: %SystemSingle, null
+    pickup: %VRCSDK3ComponentsVRCPickup, null
+    localUser: %VRCSDKBaseVRCPlayerApi, null
+    __0_this_intnl_UnityEngineTransform: %UnityEngineTransform, this
+    __0_this_intnl_Fly_Stick: %VRCUdonUdonBehaviour, this
+    __0_const_intnl_SystemBoolean: %SystemBoolean, null
+    __1_const_intnl_SystemBoolean: %SystemBoolean, null
+    __0_const_intnl_SystemSingle: %SystemSingle, null
+    __0_const_intnl_SystemType: %SystemType, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __1_intnl_SystemBoolean: %SystemBoolean, null
+    __2_intnl_SystemBoolean: %SystemBoolean, null
+    __3_intnl_SystemBoolean: %SystemBoolean, null
+    __4_intnl_SystemBoolean: %SystemBoolean, null
+    __5_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_UnityEngineComponent: %UnityEngineComponent, null
+    __0_intnl_UnityEngineQuaternion: %UnityEngineQuaternion, null
+    __0_intnl_SystemSingle: %SystemSingle, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+    __0_intnl_UnityEngineVector3: %UnityEngineVector3, null
+    __1_intnl_UnityEngineVector3: %UnityEngineVector3, null
+    __2_intnl_UnityEngineVector3: %UnityEngineVector3, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Fly_Stick : UdonSharpBehaviour
+.code_start
+        
+         #  public float speed = 10;
+        
+         #  public Transform flydirection;
+        
+         #  public bool floatInAir = true;
+        
+         #  private VRC_Pickup pickup;
+        
+         #  private bool triggerdown = false;
+        
+         #  private float gravitysave = 1;
+        
+         #  private VRCPlayerApi localUser;
+        
+         #  void Start()
+    .export _start
+        
+    _start:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (!flydirection)
+        PUSH, flydirection
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        PUSH, __1_intnl_SystemBoolean
+        EXTERN, "SystemBoolean.__op_UnaryNegation__SystemBoolean__SystemBoolean"
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x0000005C
+        
+         #  {
+        
+         #  flydirection = transform;
+        PUSH, __0_this_intnl_UnityEngineTransform
+        PUSH, flydirection
+        COPY
+        
+         #  localUser = Networking.LocalPlayer;
+        PUSH, localUser
+        EXTERN, "VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi"
+        
+         #  pickup = (VRC_Pickup)GetComponent(typeof(VRC_Pickup));
+        PUSH, __0_this_intnl_Fly_Stick
+        PUSH, __0_const_intnl_SystemType
+        PUSH, __0_intnl_UnityEngineComponent
+        EXTERN, "UnityEngineComponent.__GetComponent__SystemType__UnityEngineComponent"
+        PUSH, __0_intnl_UnityEngineComponent
+        PUSH, pickup
+        COPY
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  private void Update()
+    .export _update
+        
+    _update:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (pickup.IsHeld)
+        PUSH, pickup
+        PUSH, __2_intnl_SystemBoolean
+        EXTERN, "VRCSDK3ComponentsVRCPickup.__get_IsHeld__SystemBoolean"
+        PUSH, __2_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000364
+        
+         #  {
+        
+         #  if (triggerdown)
+        PUSH, triggerdown
+        JUMP_IF_FALSE, 0x00000234
+        
+         #  {
+        
+         #  localUser.SetVelocity(flydirection.rotation * Vector3.forward * speed);
+        PUSH, flydirection
+        PUSH, __0_intnl_UnityEngineQuaternion
+        EXTERN, "UnityEngineTransform.__get_rotation__UnityEngineQuaternion"
+        PUSH, __0_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineVector3.__get_forward__UnityEngineVector3"
+        PUSH, __0_intnl_UnityEngineQuaternion
+        PUSH, __0_intnl_UnityEngineVector3
+        PUSH, __1_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineQuaternion.__op_Multiply__UnityEngineQuaternion_UnityEngineVector3__UnityEngineVector3"
+        PUSH, __1_intnl_UnityEngineVector3
+        PUSH, speed
+        PUSH, __2_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineVector3.__op_Multiply__UnityEngineVector3_SystemSingle__UnityEngineVector3"
+        PUSH, localUser
+        PUSH, __2_intnl_UnityEngineVector3
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetVelocity__UnityEngineVector3__SystemVoid"
+        
+         #  if (floatInAir && localUser.GetGravityStrength() != 0.001f)
+        PUSH, floatInAir
+        PUSH, __3_intnl_SystemBoolean
+        COPY
+        PUSH, __3_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000204
+        PUSH, localUser
+        PUSH, __0_intnl_SystemSingle
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__GetGravityStrength__SystemSingle"
+        PUSH, __0_intnl_SystemSingle
+        PUSH, __0_const_intnl_SystemSingle
+        PUSH, __4_intnl_SystemBoolean
+        EXTERN, "SystemSingle.__op_Inequality__SystemSingle_SystemSingle__SystemBoolean"
+        PUSH, __3_intnl_SystemBoolean
+        PUSH, __4_intnl_SystemBoolean
+        PUSH, __5_intnl_SystemBoolean
+        EXTERN, "SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean"
+        PUSH, __5_intnl_SystemBoolean
+        PUSH, __3_intnl_SystemBoolean
+        COPY
+        PUSH, __3_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x0000022C
+        
+         #  {
+        
+         #  localUser.SetGravityStrength(0.001f);
+        PUSH, localUser
+        PUSH, __0_const_intnl_SystemSingle
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetGravityStrength__SystemSingle__SystemVoid"
+        JUMP, 0x00000364
+        
+         #  else
+        
+         #  {
+        
+         #  if (floatInAir)
+        PUSH, floatInAir
+        JUMP_IF_FALSE, 0x00000304
+        
+         #  {
+        
+         #  if (localUser.IsPlayerGrounded())
+        PUSH, localUser
+        PUSH, __3_intnl_SystemBoolean
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__IsPlayerGrounded__SystemBoolean"
+        PUSH, __3_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000002D4
+        
+         #  {
+        
+         #  if (localUser.GetGravityStrength() != gravitysave)
+        PUSH, localUser
+        PUSH, __0_intnl_SystemSingle
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__GetGravityStrength__SystemSingle"
+        PUSH, __0_intnl_SystemSingle
+        PUSH, gravitysave
+        PUSH, __4_intnl_SystemBoolean
+        EXTERN, "SystemSingle.__op_Inequality__SystemSingle_SystemSingle__SystemBoolean"
+        PUSH, __4_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000002CC
+        
+         #  {
+        
+         #  localUser.SetGravityStrength(gravitysave);
+        PUSH, localUser
+        PUSH, gravitysave
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetGravityStrength__SystemSingle__SystemVoid"
+        JUMP, 0x000002FC
+        
+         #  else
+        
+         #  {
+        
+         #  localUser.SetVelocity(Vector3.zero);
+        PUSH, __0_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineVector3.__get_zero__UnityEngineVector3"
+        PUSH, localUser
+        PUSH, __0_intnl_UnityEngineVector3
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetVelocity__UnityEngineVector3__SystemVoid"
+        JUMP, 0x00000364
+        
+         #  else
+        
+         #  {
+        
+         #  if (localUser.GetGravityStrength() != gravitysave)
+        PUSH, localUser
+        PUSH, __0_intnl_SystemSingle
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__GetGravityStrength__SystemSingle"
+        PUSH, __0_intnl_SystemSingle
+        PUSH, gravitysave
+        PUSH, __3_intnl_SystemBoolean
+        EXTERN, "SystemSingle.__op_Inequality__SystemSingle_SystemSingle__SystemBoolean"
+        PUSH, __3_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000364
+        
+         #  {
+        
+         #  localUser.SetGravityStrength(gravitysave);
+        PUSH, localUser
+        PUSH, gravitysave
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetGravityStrength__SystemSingle__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public virtual void OnPickupUseDown()
+    .export _onPickupUseDown
+        
+    _onPickupUseDown:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  triggerdown = true;
+        PUSH, __0_const_intnl_SystemBoolean
+        PUSH, triggerdown
+        COPY
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public virtual void OnPickupUseUp()
+    .export _onPickupUseUp
+        
+    _onPickupUseUp:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  triggerdown = false;
+        PUSH, __1_const_intnl_SystemBoolean
+        PUSH, triggerdown
+        COPY
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public virtual void OnDrop()
+    .export _onDrop
+        
+    _onDrop:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  triggerdown = false;
+        PUSH, __1_const_intnl_SystemBoolean
+        PUSH, triggerdown
+        COPY
+        
+         #  localUser.SetGravityStrength(gravitysave);
+        PUSH, localUser
+        PUSH, gravitysave
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetGravityStrength__SystemSingle__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public virtual void OnPickup()
+    .export _onPickup
+        
+    _onPickup:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  gravitysave = localUser.GetGravityStrength();
+        PUSH, localUser
+        PUSH, gravitysave
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__GetGravityStrength__SystemSingle"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

@@ -1,0 +1,96 @@
+.data_start
+
+    .export min
+    .export max
+    .export result
+    .export display
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    max: %SystemInt32, null
+    min: %SystemInt32, null
+    result: %SystemInt32, null
+    display: %UnityEngineUIText, null
+    __0_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_SystemString: %SystemString, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using UnityEngine.UI;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Random_Int : UdonSharpBehaviour
+.code_start
+        
+         #  public int min;
+        
+         #  public int max;
+        
+         #  [HideInInspector]
+        
+         #  public Text display;
+        
+         #  public virtual void Interact()
+    .export _interact
+        
+    _interact:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  GenerateInt();
+        PUSH, __0_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x00000034
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void GenerateInt()
+    .export GenerateInt
+        
+    GenerateInt:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  result = Random.Range(min, max);
+        PUSH, min
+        PUSH, max
+        PUSH, result
+        EXTERN, "UnityEngineRandom.__Range__SystemInt32_SystemInt32__SystemInt32"
+        
+         #  if (display)
+        PUSH, display
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000000AC
+        
+         #  {
+        
+         #  display.text = result.ToString();
+        PUSH, result
+        PUSH, __0_intnl_SystemString
+        EXTERN, "SystemInt32.__ToString__SystemString"
+        PUSH, display
+        PUSH, __0_intnl_SystemString
+        EXTERN, "UnityEngineUIText.__set_text__SystemString__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

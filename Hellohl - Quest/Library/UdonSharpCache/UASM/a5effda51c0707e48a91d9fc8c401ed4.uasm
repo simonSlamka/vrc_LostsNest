@@ -1,0 +1,78 @@
+.data_start
+
+    .export teleportPoint
+    .export teleportOrientation
+    .export lerpOnRemote
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    lerpOnRemote: %SystemBoolean, null
+    teleportOrientation: %VRCSDKBaseVRC_SceneDescriptorSpawnOrientation, null
+    teleportPoint: %UnityEngineTransform, null
+    onPlayerTriggerEnterPlayer: %VRCSDKBaseVRCPlayerApi, null
+    __0_mp_player_VRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_UnityEngineQuaternion: %UnityEngineQuaternion, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+    __0_intnl_UnityEngineVector3: %UnityEngineVector3, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Trigger_Teleporter : UdonSharpBehaviour
+.code_start
+        
+         #  public Transform teleportPoint;
+        
+         #  public VRC_SceneDescriptor.SpawnOrientation teleportOrientation = VRC_SceneDescriptor.SpawnOrientation.AlignPlayerWithSpawnPoint;
+        
+         #  public bool lerpOnRemote = false;
+        
+         #  public virtual void OnPlayerTriggerEnter(VRC.SDKBase.VRCPlayerApi player)
+    .export _onPlayerTriggerEnter
+        
+    _onPlayerTriggerEnter:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        PUSH, onPlayerTriggerEnterPlayer
+        PUSH, __0_mp_player_VRCPlayerApi
+        COPY
+        
+         #  {
+        
+         #  if (player.isLocal)
+        PUSH, __0_mp_player_VRCPlayerApi
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__get_isLocal__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000000A4
+        
+         #  {
+        
+         #  player.TeleportTo(teleportPoint.position, teleportPoint.rotation, teleportOrientation, lerpOnRemote);
+        PUSH, teleportPoint
+        PUSH, __0_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineTransform.__get_position__UnityEngineVector3"
+        PUSH, teleportPoint
+        PUSH, __0_intnl_UnityEngineQuaternion
+        EXTERN, "UnityEngineTransform.__get_rotation__UnityEngineQuaternion"
+        PUSH, __0_mp_player_VRCPlayerApi
+        PUSH, __0_intnl_UnityEngineVector3
+        PUSH, __0_intnl_UnityEngineQuaternion
+        PUSH, teleportOrientation
+        PUSH, lerpOnRemote
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__TeleportTo__UnityEngineVector3_UnityEngineQuaternion_VRCSDKBaseVRC_SceneDescriptorSpawnOrientation_SystemBoolean__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

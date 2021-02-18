@@ -1,0 +1,143 @@
+.data_start
+
+    .export station
+    .export seated
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    seated: %VRCSDKBaseVRCPlayerApi, null
+    station: %VRCSDK3ComponentsVRCStation, null
+    onStationEnteredPlayer: %VRCSDKBaseVRCPlayerApi, null
+    onStationExitedPlayer: %VRCSDKBaseVRCPlayerApi, null
+    __0_mp_player_VRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+    __1_mp_player_VRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+    __0_const_intnl_SystemObject: %SystemObject, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_const_intnl_VRCSDKBaseVRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __1_intnl_SystemBoolean: %SystemBoolean, null
+    __2_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+    __0_intnl_VRCSDKBaseVRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+    __1_intnl_VRCSDKBaseVRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Station_Button : UdonSharpBehaviour
+.code_start
+        
+         #  public VRCStation station;
+        
+         #  [HideInInspector]
+        
+         #  public void Sit()
+    .export Sit
+        
+    Sit:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (seated == null)
+        PUSH, seated
+        PUSH, __0_const_intnl_VRCSDKBaseVRCPlayerApi
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "SystemObject.__op_Equality__SystemObject_SystemObject__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000068
+        
+         #  {
+        
+         #  station.UseStation(Networking.LocalPlayer);
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        EXTERN, "VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi"
+        PUSH, station
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        EXTERN, "VRCSDK3ComponentsVRCStation.__UseStation__VRCSDKBaseVRCPlayerApi__SystemVoid"
+        JUMP, 0x000000D0
+        
+         #  else if(seated == Networking.LocalPlayer)
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        EXTERN, "VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi"
+        PUSH, seated
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        PUSH, __1_intnl_SystemBoolean
+        EXTERN, "SystemObject.__op_Equality__SystemObject_SystemObject__SystemBoolean"
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000000D0
+        
+         #  {
+        
+         #  station.ExitStation(Networking.LocalPlayer);
+        PUSH, __1_intnl_VRCSDKBaseVRCPlayerApi
+        EXTERN, "VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi"
+        PUSH, station
+        PUSH, __1_intnl_VRCSDKBaseVRCPlayerApi
+        EXTERN, "VRCSDK3ComponentsVRCStation.__ExitStation__VRCSDKBaseVRCPlayerApi__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public virtual void OnStationEntered(VRC.SDKBase.VRCPlayerApi player)
+    .export _onStationEntered
+        
+    _onStationEntered:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        PUSH, onStationEnteredPlayer
+        PUSH, __0_mp_player_VRCPlayerApi
+        COPY
+        
+         #  {
+        
+         #  seated = player;
+        PUSH, __0_mp_player_VRCPlayerApi
+        PUSH, seated
+        COPY
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public virtual void OnStationExited(VRC.SDKBase.VRCPlayerApi player)
+    .export _onStationExited
+        
+    _onStationExited:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        PUSH, onStationExitedPlayer
+        PUSH, __1_mp_player_VRCPlayerApi
+        COPY
+        
+         #  {
+        
+         #  if(seated == player)
+        PUSH, seated
+        PUSH, __1_mp_player_VRCPlayerApi
+        PUSH, __2_intnl_SystemBoolean
+        EXTERN, "SystemObject.__op_Equality__SystemObject_SystemObject__SystemBoolean"
+        PUSH, __2_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000188
+        
+         #  {
+        
+         #  seated = null;
+        PUSH, __0_const_intnl_SystemObject
+        PUSH, seated
+        COPY
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

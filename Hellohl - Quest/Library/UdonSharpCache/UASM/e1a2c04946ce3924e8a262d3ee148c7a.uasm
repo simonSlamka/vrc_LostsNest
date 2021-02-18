@@ -1,0 +1,188 @@
+.data_start
+
+    .export keys
+    .export udonBehaviour
+    .export eventName
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    keys: %UnityEngineColliderArray, null
+    eventName: %SystemString, null
+    udonBehaviour: %VRCUdonUdonBehaviour, null
+    onTriggerEnterOther: %UnityEngineCollider, null
+    onCollisionEnterOther: %UnityEngineCollision, null
+    __0_mp_other_Collider: %UnityEngineCollider, null
+    __0_mp_collision_Collision: %UnityEngineCollision, null
+    __0_i_Int32: %SystemInt32, null
+    __1_i_Int32: %SystemInt32, null
+    __0_const_intnl_SystemInt32: %SystemInt32, null
+    __1_const_intnl_SystemInt32: %SystemInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __1_intnl_SystemBoolean: %SystemBoolean, null
+    __2_intnl_SystemBoolean: %SystemBoolean, null
+    __3_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_UnityEngineCollider: %UnityEngineCollider, null
+    __1_intnl_UnityEngineCollider: %UnityEngineCollider, null
+    __2_intnl_UnityEngineCollider: %UnityEngineCollider, null
+    __0_intnl_SystemInt32: %SystemInt32, null
+    __1_intnl_SystemInt32: %SystemInt32, null
+    __2_intnl_SystemInt32: %SystemInt32, null
+    __3_intnl_SystemInt32: %SystemInt32, null
+    __0_intnl_SystemString: %SystemString, null
+    __1_intnl_SystemString: %SystemString, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Collider_Key : UdonSharpBehaviour
+.code_start
+        
+         #  public Collider[] keys;
+        
+         #  public UdonBehaviour udonBehaviour;
+        
+         #  public string eventName;
+        
+         #  private void OnTriggerEnter(Collider other)
+    .export _onTriggerEnter
+        
+    _onTriggerEnter:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        PUSH, onTriggerEnterOther
+        PUSH, __0_mp_other_Collider
+        COPY
+        
+         #  {
+        
+         #  for (int i = 0; i < keys.Length; i++)
+        PUSH, __0_const_intnl_SystemInt32
+        PUSH, __0_i_Int32
+        COPY
+        PUSH, keys
+        PUSH, __0_intnl_SystemInt32
+        EXTERN, "UnityEngineColliderArray.__get_Length__SystemInt32"
+        PUSH, __0_i_Int32
+        PUSH, __0_intnl_SystemInt32
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000138
+        
+         #  {
+        
+         #  if(other == keys[i])
+        PUSH, keys
+        PUSH, __0_i_Int32
+        PUSH, __0_intnl_UnityEngineCollider
+        EXTERN, "SystemObjectArray.__Get__SystemInt32__SystemObject"
+        PUSH, __0_mp_other_Collider
+        PUSH, __0_intnl_UnityEngineCollider
+        PUSH, __1_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Equality__UnityEngineObject_UnityEngineObject__SystemBoolean"
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000000FC
+        
+         #  {
+        
+         #  udonBehaviour.SendCustomEvent(eventName);
+        PUSH, udonBehaviour
+        PUSH, eventName
+        PUSH, __0_intnl_SystemString
+        COPY #  Copy-on-write symbol value dirtied
+        PUSH, eventName
+        EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid"
+        
+         #  break;
+        JUMP, 0x00000138
+        PUSH, __0_i_Int32
+        PUSH, __1_intnl_SystemInt32
+        COPY
+        PUSH, __0_i_Int32
+        PUSH, __1_const_intnl_SystemInt32
+        PUSH, __0_i_Int32
+        EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+        JUMP, 0x00000030
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  private void OnCollisionEnter(Collision collision)
+    .export _onCollisionEnter
+        
+    _onCollisionEnter:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        PUSH, onCollisionEnterOther
+        PUSH, __0_mp_collision_Collision
+        COPY
+        
+         #  {
+        
+         #  for (int i = 0; i < keys.Length; i++)
+        PUSH, __0_const_intnl_SystemInt32
+        PUSH, __1_i_Int32
+        COPY
+        PUSH, keys
+        PUSH, __2_intnl_SystemInt32
+        EXTERN, "UnityEngineColliderArray.__get_Length__SystemInt32"
+        PUSH, __1_i_Int32
+        PUSH, __2_intnl_SystemInt32
+        PUSH, __2_intnl_SystemBoolean
+        EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+        PUSH, __2_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x0000029C
+        
+         #  {
+        
+         #  if (collision.collider == keys[i])
+        PUSH, __0_mp_collision_Collision
+        PUSH, __1_intnl_UnityEngineCollider
+        EXTERN, "UnityEngineCollision.__get_collider__UnityEngineCollider"
+        PUSH, keys
+        PUSH, __1_i_Int32
+        PUSH, __2_intnl_UnityEngineCollider
+        EXTERN, "SystemObjectArray.__Get__SystemInt32__SystemObject"
+        PUSH, __1_intnl_UnityEngineCollider
+        PUSH, __2_intnl_UnityEngineCollider
+        PUSH, __3_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Equality__UnityEngineObject_UnityEngineObject__SystemBoolean"
+        PUSH, __3_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000260
+        
+         #  {
+        
+         #  udonBehaviour.SendCustomEvent(eventName);
+        PUSH, udonBehaviour
+        PUSH, eventName
+        PUSH, __1_intnl_SystemString
+        COPY #  Copy-on-write symbol value dirtied
+        PUSH, eventName
+        EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid"
+        
+         #  break;
+        JUMP, 0x0000029C
+        PUSH, __1_i_Int32
+        PUSH, __3_intnl_SystemInt32
+        COPY
+        PUSH, __1_i_Int32
+        PUSH, __1_const_intnl_SystemInt32
+        PUSH, __1_i_Int32
+        EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+        JUMP, 0x0000017C
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end
