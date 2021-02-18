@@ -1,0 +1,329 @@
+.data_start
+
+    .export udonBehaviour
+    .export variableName
+    .export value
+    .export getOnStart
+    .export display
+    .export toggle
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    getOnStart: %SystemBoolean, null
+    value: %SystemBoolean, null
+    variableName: %SystemString, null
+    display: %UnityEngineUIText, null
+    toggle: %UnityEngineUIToggle, null
+    udonBehaviour: %VRCUdonUdonBehaviour, null
+    toggleInitialize: %SystemBoolean, null
+    __0_const_intnl_SystemBoolean: %SystemBoolean, null
+    __1_const_intnl_SystemBoolean: %SystemBoolean, null
+    __0_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __1_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __2_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __3_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __1_intnl_SystemBoolean: %SystemBoolean, null
+    __2_intnl_SystemBoolean: %SystemBoolean, null
+    __3_intnl_SystemBoolean: %SystemBoolean, null
+    __4_intnl_SystemBoolean: %SystemBoolean, null
+    __5_intnl_SystemBoolean: %SystemBoolean, null
+    __6_intnl_SystemBoolean: %SystemBoolean, null
+    __7_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_SystemObject: %SystemObject, null
+    __0_intnl_SystemString: %SystemString, null
+    __1_intnl_SystemString: %SystemString, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using UnityEngine.UI;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Set_Bool : UdonSharpBehaviour
+.code_start
+        
+         #  public UdonBehaviour udonBehaviour;
+        
+         #  public string variableName;
+        
+         #  public bool value;
+        
+         #  public bool getOnStart = false;
+        
+         #  public Text display;
+        
+         #  public Toggle toggle;
+        
+         #  private bool toggleInitialize = false;
+        
+         #  void Start()
+    .export _start
+        
+    _start:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (getOnStart)
+        PUSH, getOnStart
+        JUMP_IF_FALSE, 0x00000078
+        
+         #  {
+        
+         #  if (udonBehaviour)
+        PUSH, udonBehaviour
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000078
+        
+         #  {
+        
+         #  value = (bool)udonBehaviour.GetProgramVariable(variableName);
+        PUSH, udonBehaviour
+        PUSH, variableName
+        PUSH, __0_intnl_SystemObject
+        EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject"
+        PUSH, __0_intnl_SystemObject
+        PUSH, value
+        EXTERN, "SystemConvert.__ToBoolean__SystemObject__SystemBoolean"
+        
+         #  if (display)
+        PUSH, display
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000000D0
+        
+         #  {
+        
+         #  display.text = value.ToString();
+        PUSH, value
+        PUSH, __0_intnl_SystemString
+        EXTERN, "SystemBoolean.__ToString__SystemString"
+        PUSH, display
+        PUSH, __0_intnl_SystemString
+        EXTERN, "UnityEngineUIText.__set_text__SystemString__SystemVoid"
+        
+         #  if (toggle)
+        PUSH, toggle
+        PUSH, __1_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000124
+        
+         #  {
+        
+         #  toggle.isOn = value;
+        PUSH, toggle
+        PUSH, value
+        EXTERN, "UnityEngineUIToggle.__set_isOn__SystemBoolean__SystemVoid"
+        
+         #  toggleInitialize = true;
+        PUSH, __0_const_intnl_SystemBoolean
+        PUSH, toggleInitialize
+        COPY
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void SetBool()
+    .export SetBool
+        
+    SetBool:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (udonBehaviour)
+        PUSH, udonBehaviour
+        PUSH, __2_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __2_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000188
+        
+         #  {
+        
+         #  udonBehaviour.SetProgramVariable(variableName, value);
+        PUSH, udonBehaviour
+        PUSH, variableName
+        PUSH, value
+        EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__SetProgramVariable__SystemString_SystemObject__SystemVoid"
+        
+         #  if (toggle)
+        PUSH, toggle
+        PUSH, __3_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __3_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000238
+        
+         #  {
+        
+         #  if(toggle.isOn != value)
+        PUSH, toggle
+        PUSH, __4_intnl_SystemBoolean
+        EXTERN, "UnityEngineUIToggle.__get_isOn__SystemBoolean"
+        PUSH, __4_intnl_SystemBoolean
+        PUSH, value
+        PUSH, __5_intnl_SystemBoolean
+        EXTERN, "SystemBoolean.__op_Inequality__SystemBoolean_SystemBoolean__SystemBoolean"
+        PUSH, __5_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000238
+        
+         #  {
+        
+         #  toggleInitialize = false;
+        PUSH, __1_const_intnl_SystemBoolean
+        PUSH, toggleInitialize
+        COPY
+        
+         #  toggle.isOn = value;
+        PUSH, toggle
+        PUSH, value
+        EXTERN, "UnityEngineUIToggle.__set_isOn__SystemBoolean__SystemVoid"
+        
+         #  toggleInitialize = true;
+        PUSH, __0_const_intnl_SystemBoolean
+        PUSH, toggleInitialize
+        COPY
+        
+         #  if (display)
+        PUSH, display
+        PUSH, __4_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __4_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000290
+        
+         #  {
+        
+         #  display.text = value.ToString();
+        PUSH, value
+        PUSH, __1_intnl_SystemString
+        EXTERN, "SystemBoolean.__ToString__SystemString"
+        PUSH, display
+        PUSH, __1_intnl_SystemString
+        EXTERN, "UnityEngineUIText.__set_text__SystemString__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void SetTrue()
+    .export SetTrue
+        
+    SetTrue:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  value = true;
+        PUSH, __0_const_intnl_SystemBoolean
+        PUSH, value
+        COPY
+        
+         #  SetBool();
+        PUSH, __0_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x00000140
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void SetFalse()
+    .export SetFalse
+        
+    SetFalse:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  value = false;
+        PUSH, __1_const_intnl_SystemBoolean
+        PUSH, value
+        COPY
+        
+         #  SetBool();
+        PUSH, __1_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x00000140
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void Toggle()
+    .export Toggle
+        
+    Toggle:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  value = !value;
+        PUSH, value
+        PUSH, value
+        EXTERN, "SystemBoolean.__op_UnaryNegation__SystemBoolean__SystemBoolean"
+        
+         #  SetBool();
+        PUSH, __2_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x00000140
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void SetToggle()
+    .export SetToggle
+        
+    SetToggle:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (toggle && toggleInitialize)
+        PUSH, toggle
+        PUSH, __6_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __6_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000003CC
+        PUSH, __6_intnl_SystemBoolean
+        PUSH, toggleInitialize
+        PUSH, __7_intnl_SystemBoolean
+        EXTERN, "SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean"
+        PUSH, __7_intnl_SystemBoolean
+        PUSH, __6_intnl_SystemBoolean
+        COPY
+        PUSH, __6_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000404
+        
+         #  {
+        
+         #  value = toggle.isOn;
+        PUSH, toggle
+        PUSH, value
+        EXTERN, "UnityEngineUIToggle.__get_isOn__SystemBoolean"
+        
+         #  SetBool();
+        PUSH, __3_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x00000140
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

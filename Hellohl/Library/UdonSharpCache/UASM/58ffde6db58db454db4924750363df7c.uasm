@@ -1,0 +1,193 @@
+.data_start
+
+    .export password
+    .export inputfield
+    .export udonBehaviour
+    .export eventName
+    .export networkEvent
+    .export target
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    networkEvent: %SystemBoolean, null
+    inputfield: %UnityEngineUIInputField, null
+    target: %VRCUdonCommonInterfacesNetworkEventTarget, null
+    eventName: %SystemString, null
+    password: %SystemString, null
+    udonBehaviour: %VRCUdonUdonBehaviour, null
+    __0_const_intnl_SystemInt32: %SystemInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __1_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_SystemInt32: %SystemInt32, null
+    __1_intnl_SystemInt32: %SystemInt32, null
+    __2_intnl_SystemInt32: %SystemInt32, null
+    __0_intnl_VRCUdonCommonInterfacesNetworkEventTarget: %VRCUdonCommonInterfacesNetworkEventTarget, null
+    __0_intnl_SystemString: %SystemString, null
+    __1_intnl_SystemString: %SystemString, null
+    __2_intnl_SystemString: %SystemString, null
+    __3_intnl_SystemString: %SystemString, null
+    __4_intnl_SystemString: %SystemString, null
+    __5_intnl_SystemString: %SystemString, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using UnityEngine.UI;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class String_password : UdonSharpBehaviour
+.code_start
+        
+         #  public string password = "0123";
+        
+         #  public InputField inputfield;
+        
+         #  public UdonBehaviour udonBehaviour; //the udonebehaviour you will be calling the event on
+        
+         #  public string eventName; //string name of the event.
+        
+         #  public bool networkEvent; //bool of wheather the event gets called localy or with a network event.
+        
+         #  public VRC.Udon.Common.Interfaces.NetworkEventTarget target; //if using a network event who the target will be.
+        
+         #  public void Submit() //the event sending out the udonbehaviour event.
+    .export Submit
+        
+    Submit:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if(inputfield.text == password)
+        PUSH, inputfield
+        PUSH, __0_intnl_SystemString
+        EXTERN, "UnityEngineUIInputField.__get_text__SystemString"
+        PUSH, __0_intnl_SystemString
+        PUSH, password
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "SystemString.__op_Equality__SystemString_SystemString__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000000E4
+        
+         #  {
+        
+         #  if (networkEvent)
+        PUSH, networkEvent
+        JUMP_IF_FALSE, 0x000000B0
+        
+         #  {
+        
+         #  udonBehaviour.SendCustomNetworkEvent(target, eventName);
+        PUSH, udonBehaviour
+        PUSH, eventName
+        PUSH, __1_intnl_SystemString
+        COPY #  Copy-on-write symbol value dirtied
+        PUSH, target
+        PUSH, __0_intnl_VRCUdonCommonInterfacesNetworkEventTarget
+        COPY #  Copy-on-write symbol value dirtied
+        PUSH, target
+        PUSH, eventName
+        EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomNetworkEvent__VRCUdonCommonInterfacesNetworkEventTarget_SystemString__SystemVoid"
+        JUMP, 0x000000DC
+        
+         #  else
+        
+         #  {
+        
+         #  udonBehaviour.SendCustomEvent(eventName);
+        PUSH, udonBehaviour
+        PUSH, eventName
+        PUSH, __1_intnl_SystemString
+        COPY #  Copy-on-write symbol value dirtied
+        PUSH, eventName
+        EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid"
+        JUMP, 0x0000010C
+        
+         #  else
+        
+         #  {
+        
+         #  inputfield.text = string.Empty;
+        PUSH, __1_intnl_SystemString
+        EXTERN, "SystemString.__get_Empty__SystemString"
+        PUSH, inputfield
+        PUSH, __1_intnl_SystemString
+        EXTERN, "UnityEngineUIInputField.__set_text__SystemString__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void Backspace()
+    .export Backspace
+        
+    Backspace:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (inputfield.text.Length > 1)
+        PUSH, inputfield
+        PUSH, __2_intnl_SystemString
+        EXTERN, "UnityEngineUIInputField.__get_text__SystemString"
+        PUSH, __2_intnl_SystemString
+        PUSH, __0_intnl_SystemInt32
+        EXTERN, "SystemString.__get_Length__SystemInt32"
+        PUSH, __0_intnl_SystemInt32
+        PUSH, __0_const_intnl_SystemInt32
+        PUSH, __1_intnl_SystemBoolean
+        EXTERN, "SystemInt32.__op_GreaterThan__SystemInt32_SystemInt32__SystemBoolean"
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000230
+        
+         #  {
+        
+         #  inputfield.text = inputfield.text.Remove(inputfield.text.Length - 1);
+        PUSH, inputfield
+        PUSH, __3_intnl_SystemString
+        EXTERN, "UnityEngineUIInputField.__get_text__SystemString"
+        PUSH, inputfield
+        PUSH, __4_intnl_SystemString
+        EXTERN, "UnityEngineUIInputField.__get_text__SystemString"
+        PUSH, __4_intnl_SystemString
+        PUSH, __1_intnl_SystemInt32
+        EXTERN, "SystemString.__get_Length__SystemInt32"
+        PUSH, __1_intnl_SystemInt32
+        PUSH, __0_const_intnl_SystemInt32
+        PUSH, __2_intnl_SystemInt32
+        EXTERN, "SystemInt32.__op_Subtraction__SystemInt32_SystemInt32__SystemInt32"
+        PUSH, __3_intnl_SystemString
+        PUSH, __2_intnl_SystemInt32
+        PUSH, __5_intnl_SystemString
+        EXTERN, "SystemString.__Remove__SystemInt32__SystemString"
+        PUSH, inputfield
+        PUSH, __5_intnl_SystemString
+        EXTERN, "UnityEngineUIInputField.__set_text__SystemString__SystemVoid"
+        JUMP, 0x00000258
+        
+         #  else
+        
+         #  {
+        
+         #  inputfield.text = string.Empty;
+        PUSH, __3_intnl_SystemString
+        EXTERN, "SystemString.__get_Empty__SystemString"
+        PUSH, inputfield
+        PUSH, __3_intnl_SystemString
+        EXTERN, "UnityEngineUIInputField.__set_text__SystemString__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

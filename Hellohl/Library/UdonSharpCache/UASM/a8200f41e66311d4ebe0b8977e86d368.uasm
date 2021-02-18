@@ -1,0 +1,481 @@
+.data_start
+
+    .export rayAim
+    .export distance
+    .export hitMask
+    .export rayvisual
+    .export hitLocation
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    hitMask: %UnityEngineLayerMask, null
+    rayvisual: %UnityEngineRendererArray, null
+    distance: %SystemSingle, null
+    hitLocation: %UnityEngineTransform, null
+    rayAim: %UnityEngineTransform, null
+    hitSomething: %SystemBoolean, null
+    transform: %UnityEngineTransform, null
+    pickup: %VRCSDK3ComponentsVRCPickup, null
+    __0_this_intnl_Teleport_Stick: %VRCUdonUdonBehaviour, this
+    __0_i_Int32: %SystemInt32, null
+    __1_i_Int32: %SystemInt32, null
+    __2_i_Int32: %SystemInt32, null
+    __0_hitinfotemp_RaycastHit: %UnityEngineRaycastHit, null
+    __0_const_intnl_SystemBoolean: %SystemBoolean, null
+    __1_const_intnl_SystemBoolean: %SystemBoolean, null
+    __0_const_intnl_SystemInt32: %SystemInt32, null
+    __1_const_intnl_SystemInt32: %SystemInt32, null
+    __0_const_intnl_UnityEngineQueryTriggerInteraction: %UnityEngineQueryTriggerInteraction, null
+    __0_const_intnl_VRCSDKBaseVRC_SceneDescriptorSpawnOrientation: %VRCSDKBaseVRC_SceneDescriptorSpawnOrientation, null
+    __0_const_intnl_SystemType: %SystemType, null
+    __1_const_intnl_SystemType: %SystemType, null
+    __0_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __1_intnl_SystemBoolean: %SystemBoolean, null
+    __2_intnl_SystemBoolean: %SystemBoolean, null
+    __3_intnl_SystemBoolean: %SystemBoolean, null
+    __4_intnl_SystemBoolean: %SystemBoolean, null
+    __5_intnl_SystemBoolean: %SystemBoolean, null
+    __6_intnl_SystemBoolean: %SystemBoolean, null
+    __7_intnl_SystemBoolean: %SystemBoolean, null
+    __8_intnl_SystemBoolean: %SystemBoolean, null
+    __9_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_UnityEngineComponent: %UnityEngineComponent, null
+    __0_intnl_SystemInt32: %SystemInt32, null
+    __1_intnl_SystemInt32: %SystemInt32, null
+    __2_intnl_SystemInt32: %SystemInt32, null
+    __3_intnl_SystemInt32: %SystemInt32, null
+    __4_intnl_SystemInt32: %SystemInt32, null
+    __5_intnl_SystemInt32: %SystemInt32, null
+    __6_intnl_SystemInt32: %SystemInt32, null
+    __7_intnl_SystemInt32: %SystemInt32, null
+    __0_intnl_UnityEngineQuaternion: %UnityEngineQuaternion, null
+    __1_intnl_UnityEngineQuaternion: %UnityEngineQuaternion, null
+    __2_intnl_UnityEngineQuaternion: %UnityEngineQuaternion, null
+    __0_intnl_UnityEngineRenderer: %UnityEngineRenderer, null
+    __1_intnl_UnityEngineRenderer: %UnityEngineRenderer, null
+    __2_intnl_UnityEngineRenderer: %UnityEngineRenderer, null
+    __3_intnl_UnityEngineRenderer: %UnityEngineRenderer, null
+    __0_intnl_UnityEngineTransform: %UnityEngineTransform, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+    __0_intnl_UnityEngineVector3: %UnityEngineVector3, null
+    __1_intnl_UnityEngineVector3: %UnityEngineVector3, null
+    __2_intnl_UnityEngineVector3: %UnityEngineVector3, null
+    __3_intnl_UnityEngineVector3: %UnityEngineVector3, null
+    __4_intnl_UnityEngineVector3: %UnityEngineVector3, null
+    __5_intnl_UnityEngineVector3: %UnityEngineVector3, null
+    __6_intnl_UnityEngineVector3: %UnityEngineVector3, null
+    __0_intnl_VRCSDKBaseVRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+    __1_intnl_VRCSDKBaseVRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Teleport_Stick : UdonSharpBehaviour
+.code_start
+        
+         #  public Transform rayAim;
+        
+         #  public float distance = Mathf.Infinity;
+        
+         #  public LayerMask hitMask = 2327;
+        
+         #  public Renderer[] rayvisual;
+        
+         #  public Transform hitLocation;
+        
+         #  private bool hitSomething;
+        
+         #  private VRC_Pickup pickup;
+        
+         #  private Transform transform;
+        
+         #  void Start()
+    .export _start
+        
+    _start:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  Debug.Log(hitMask.value);
+        PUSH, hitMask
+        PUSH, __0_intnl_SystemInt32
+        EXTERN, "UnityEngineLayerMask.__get_value__SystemInt32"
+        PUSH, __0_intnl_SystemInt32
+        EXTERN, "UnityEngineDebug.__Log__SystemObject__SystemVoid"
+        
+         #  pickup = (VRC_Pickup)GetComponent(typeof(VRC_Pickup));
+        PUSH, __0_this_intnl_Teleport_Stick
+        PUSH, __0_const_intnl_SystemType
+        PUSH, __0_intnl_UnityEngineComponent
+        EXTERN, "UnityEngineComponent.__GetComponent__SystemType__UnityEngineComponent"
+        PUSH, __0_intnl_UnityEngineComponent
+        PUSH, pickup
+        COPY
+        
+         #  transform = GetComponent<Transform>();
+        PUSH, __0_this_intnl_Teleport_Stick
+        PUSH, __0_intnl_UnityEngineTransform
+        EXTERN, "UnityEngineComponent.__get_transform__UnityEngineTransform" # GetComponent strongbox mismatch fix
+        PUSH, __0_intnl_UnityEngineTransform
+        PUSH, __1_const_intnl_SystemType
+        PUSH, transform
+        EXTERN, "UnityEngineTransform.__GetComponent__T"
+        
+         #  transform.hasChanged = false;
+        PUSH, transform
+        PUSH, __0_const_intnl_SystemBoolean
+        EXTERN, "UnityEngineTransform.__set_hasChanged__SystemBoolean__SystemVoid"
+        
+         #  for (int i = 0; i < rayvisual.Length; i++)
+        PUSH, __0_const_intnl_SystemInt32
+        PUSH, __0_i_Int32
+        COPY
+        PUSH, rayvisual
+        PUSH, __1_intnl_SystemInt32
+        EXTERN, "UnityEngineRendererArray.__get_Length__SystemInt32"
+        PUSH, __0_i_Int32
+        PUSH, __1_intnl_SystemInt32
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000184
+        
+         #  {
+        
+         #  rayvisual[i].enabled = false;
+        PUSH, rayvisual
+        PUSH, __0_i_Int32
+        PUSH, __0_intnl_UnityEngineRenderer
+        EXTERN, "SystemObjectArray.__Get__SystemInt32__SystemObject"
+        PUSH, __0_intnl_UnityEngineRenderer
+        PUSH, __0_const_intnl_SystemBoolean
+        EXTERN, "UnityEngineRenderer.__set_enabled__SystemBoolean__SystemVoid"
+        PUSH, __0_i_Int32
+        PUSH, __2_intnl_SystemInt32
+        COPY
+        PUSH, __0_i_Int32
+        PUSH, __1_const_intnl_SystemInt32
+        PUSH, __0_i_Int32
+        EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+        JUMP, 0x000000C8
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  private void Update()
+    .export _update
+        
+    _update:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (pickup.IsHeld && transform.hasChanged)
+        PUSH, pickup
+        PUSH, __2_intnl_SystemBoolean
+        EXTERN, "VRCSDK3ComponentsVRCPickup.__get_IsHeld__SystemBoolean"
+        PUSH, __2_intnl_SystemBoolean
+        PUSH, __1_intnl_SystemBoolean
+        COPY
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000228
+        PUSH, transform
+        PUSH, __3_intnl_SystemBoolean
+        EXTERN, "UnityEngineTransform.__get_hasChanged__SystemBoolean"
+        PUSH, __1_intnl_SystemBoolean
+        PUSH, __3_intnl_SystemBoolean
+        PUSH, __4_intnl_SystemBoolean
+        EXTERN, "SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean"
+        PUSH, __4_intnl_SystemBoolean
+        PUSH, __1_intnl_SystemBoolean
+        COPY
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000260
+        
+         #  {
+        
+         #  RaycastOut();
+        PUSH, __0_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x0000037C
+        
+         #  transform.hasChanged = false;
+        PUSH, transform
+        PUSH, __0_const_intnl_SystemBoolean
+        EXTERN, "UnityEngineTransform.__set_hasChanged__SystemBoolean__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public virtual void OnDrop()
+    .export _onDrop
+        
+    _onDrop:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  for (int i = 0; i < rayvisual.Length; i++)
+        PUSH, __0_const_intnl_SystemInt32
+        PUSH, __1_i_Int32
+        COPY
+        PUSH, rayvisual
+        PUSH, __3_intnl_SystemInt32
+        EXTERN, "UnityEngineRendererArray.__get_Length__SystemInt32"
+        PUSH, __1_i_Int32
+        PUSH, __3_intnl_SystemInt32
+        PUSH, __5_intnl_SystemBoolean
+        EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+        PUSH, __5_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x0000034C
+        
+         #  {
+        
+         #  rayvisual[i].enabled = false;
+        PUSH, rayvisual
+        PUSH, __1_i_Int32
+        PUSH, __1_intnl_UnityEngineRenderer
+        EXTERN, "SystemObjectArray.__Get__SystemInt32__SystemObject"
+        PUSH, __1_intnl_UnityEngineRenderer
+        PUSH, __0_const_intnl_SystemBoolean
+        EXTERN, "UnityEngineRenderer.__set_enabled__SystemBoolean__SystemVoid"
+        PUSH, __1_i_Int32
+        PUSH, __4_intnl_SystemInt32
+        COPY
+        PUSH, __1_i_Int32
+        PUSH, __1_const_intnl_SystemInt32
+        PUSH, __1_i_Int32
+        EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+        JUMP, 0x00000290
+        
+         #  hitSomething = false;
+        PUSH, __0_const_intnl_SystemBoolean
+        PUSH, hitSomething
+        COPY
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void RaycastOut()
+    .export RaycastOut
+        
+    RaycastOut:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  RaycastHit hitinfotemp;
+        
+         #  if(Physics.Raycast(rayAim.position, rayAim.rotation * Vector3.forward, out hitinfotemp, distance, hitMask, QueryTriggerInteraction.Ignore))
+        PUSH, rayAim
+        PUSH, __0_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineTransform.__get_position__UnityEngineVector3"
+        PUSH, rayAim
+        PUSH, __0_intnl_UnityEngineQuaternion
+        EXTERN, "UnityEngineTransform.__get_rotation__UnityEngineQuaternion"
+        PUSH, __1_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineVector3.__get_forward__UnityEngineVector3"
+        PUSH, __0_intnl_UnityEngineQuaternion
+        PUSH, __1_intnl_UnityEngineVector3
+        PUSH, __2_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineQuaternion.__op_Multiply__UnityEngineQuaternion_UnityEngineVector3__UnityEngineVector3"
+        PUSH, hitMask
+        PUSH, __5_intnl_SystemInt32
+        EXTERN, "UnityEngineLayerMask.__op_Implicit__UnityEngineLayerMask__SystemInt32"
+        PUSH, __0_intnl_UnityEngineVector3
+        PUSH, __2_intnl_UnityEngineVector3
+        PUSH, __0_hitinfotemp_RaycastHit
+        PUSH, distance
+        PUSH, __5_intnl_SystemInt32
+        PUSH, __0_const_intnl_UnityEngineQueryTriggerInteraction
+        PUSH, __6_intnl_SystemBoolean
+        EXTERN, "UnityEnginePhysics.__Raycast__UnityEngineVector3_UnityEngineVector3_UnityEngineRaycastHitRef_SystemSingle_SystemInt32_UnityEngineQueryTriggerInteraction__SystemBoolean"
+        PUSH, __6_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000610
+        
+         #  {
+        
+         #  hitSomething = true;
+        PUSH, __1_const_intnl_SystemBoolean
+        PUSH, hitSomething
+        COPY
+        
+         #  hitLocation.SetPositionAndRotation(hitinfotemp.point, Quaternion.FromToRotation(Vector3.up, hitinfotemp.normal));
+        PUSH, __0_hitinfotemp_RaycastHit
+        PUSH, __3_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineRaycastHit.__get_point__UnityEngineVector3"
+        PUSH, __4_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineVector3.__get_up__UnityEngineVector3"
+        PUSH, __0_hitinfotemp_RaycastHit
+        PUSH, __5_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineRaycastHit.__get_normal__UnityEngineVector3"
+        PUSH, __4_intnl_UnityEngineVector3
+        PUSH, __5_intnl_UnityEngineVector3
+        PUSH, __1_intnl_UnityEngineQuaternion
+        EXTERN, "UnityEngineQuaternion.__FromToRotation__UnityEngineVector3_UnityEngineVector3__UnityEngineQuaternion"
+        PUSH, hitLocation
+        PUSH, __3_intnl_UnityEngineVector3
+        PUSH, __1_intnl_UnityEngineQuaternion
+        EXTERN, "UnityEngineTransform.__SetPositionAndRotation__UnityEngineVector3_UnityEngineQuaternion__SystemVoid"
+        
+         #  for (int i = 0; i < rayvisual.Length; i++)
+        PUSH, __0_const_intnl_SystemInt32
+        PUSH, __2_i_Int32
+        COPY
+        PUSH, rayvisual
+        PUSH, __6_intnl_SystemInt32
+        EXTERN, "UnityEngineRendererArray.__get_Length__SystemInt32"
+        PUSH, __2_i_Int32
+        PUSH, __6_intnl_SystemInt32
+        PUSH, __7_intnl_SystemBoolean
+        EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+        PUSH, __7_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000608
+        
+         #  {
+        
+         #  if(!rayvisual[i].enabled)
+        PUSH, rayvisual
+        PUSH, __2_i_Int32
+        PUSH, __2_intnl_UnityEngineRenderer
+        EXTERN, "SystemObjectArray.__Get__SystemInt32__SystemObject"
+        PUSH, __2_intnl_UnityEngineRenderer
+        PUSH, __8_intnl_SystemBoolean
+        EXTERN, "UnityEngineRenderer.__get_enabled__SystemBoolean"
+        PUSH, __8_intnl_SystemBoolean
+        PUSH, __9_intnl_SystemBoolean
+        EXTERN, "SystemBoolean.__op_UnaryNegation__SystemBoolean__SystemBoolean"
+        PUSH, __9_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000005CC
+        
+         #  rayvisual[i].enabled = true;
+        PUSH, rayvisual
+        PUSH, __2_i_Int32
+        PUSH, __3_intnl_UnityEngineRenderer
+        EXTERN, "SystemObjectArray.__Get__SystemInt32__SystemObject"
+        PUSH, __3_intnl_UnityEngineRenderer
+        PUSH, __1_const_intnl_SystemBoolean
+        EXTERN, "UnityEngineRenderer.__set_enabled__SystemBoolean__SystemVoid"
+        PUSH, __2_i_Int32
+        PUSH, __7_intnl_SystemInt32
+        COPY
+        PUSH, __2_i_Int32
+        PUSH, __1_const_intnl_SystemInt32
+        PUSH, __2_i_Int32
+        EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+        JUMP, 0x000004EC
+        JUMP, 0x0000073C
+        
+         #  else
+        
+         #  {
+        
+         #  hitSomething = false;
+        PUSH, __0_const_intnl_SystemBoolean
+        PUSH, hitSomething
+        COPY
+        
+         #  for (int i = 0; i < rayvisual.Length; i++)
+        PUSH, __0_const_intnl_SystemInt32
+        PUSH, __2_i_Int32
+        COPY
+        PUSH, rayvisual
+        PUSH, __6_intnl_SystemInt32
+        EXTERN, "UnityEngineRendererArray.__get_Length__SystemInt32"
+        PUSH, __2_i_Int32
+        PUSH, __6_intnl_SystemInt32
+        PUSH, __7_intnl_SystemBoolean
+        EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+        PUSH, __7_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x0000073C
+        
+         #  {
+        
+         #  if (rayvisual[i].enabled)
+        PUSH, rayvisual
+        PUSH, __2_i_Int32
+        PUSH, __2_intnl_UnityEngineRenderer
+        EXTERN, "SystemObjectArray.__Get__SystemInt32__SystemObject"
+        PUSH, __2_intnl_UnityEngineRenderer
+        PUSH, __8_intnl_SystemBoolean
+        EXTERN, "UnityEngineRenderer.__get_enabled__SystemBoolean"
+        PUSH, __8_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000700
+        
+         #  rayvisual[i].enabled = false;
+        PUSH, rayvisual
+        PUSH, __2_i_Int32
+        PUSH, __3_intnl_UnityEngineRenderer
+        EXTERN, "SystemObjectArray.__Get__SystemInt32__SystemObject"
+        PUSH, __3_intnl_UnityEngineRenderer
+        PUSH, __0_const_intnl_SystemBoolean
+        EXTERN, "UnityEngineRenderer.__set_enabled__SystemBoolean__SystemVoid"
+        PUSH, __2_i_Int32
+        PUSH, __7_intnl_SystemInt32
+        COPY
+        PUSH, __2_i_Int32
+        PUSH, __1_const_intnl_SystemInt32
+        PUSH, __2_i_Int32
+        EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+        JUMP, 0x00000638
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public virtual void OnPickupUseDown()
+    .export _onPickupUseDown
+        
+    _onPickupUseDown:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (hitSomething)
+        PUSH, hitSomething
+        JUMP_IF_FALSE, 0x000007F8
+        
+         #  {
+        
+         #  pickup.currentPlayer.TeleportTo(hitLocation.position, pickup.currentPlayer.GetRotation(), VRC_SceneDescriptor.SpawnOrientation.AlignPlayerWithSpawnPoint, true);
+        PUSH, pickup
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        EXTERN, "VRCSDK3ComponentsVRCPickup.__get_currentPlayer__VRCSDKBaseVRCPlayerApi"
+        PUSH, hitLocation
+        PUSH, __6_intnl_UnityEngineVector3
+        EXTERN, "UnityEngineTransform.__get_position__UnityEngineVector3"
+        PUSH, pickup
+        PUSH, __1_intnl_VRCSDKBaseVRCPlayerApi
+        EXTERN, "VRCSDK3ComponentsVRCPickup.__get_currentPlayer__VRCSDKBaseVRCPlayerApi"
+        PUSH, __1_intnl_VRCSDKBaseVRCPlayerApi
+        PUSH, __2_intnl_UnityEngineQuaternion
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__GetRotation__UnityEngineQuaternion"
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        PUSH, __6_intnl_UnityEngineVector3
+        PUSH, __2_intnl_UnityEngineQuaternion
+        PUSH, __0_const_intnl_VRCSDKBaseVRC_SceneDescriptorSpawnOrientation
+        PUSH, __1_const_intnl_SystemBoolean
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__TeleportTo__UnityEngineVector3_UnityEngineQuaternion_VRCSDKBaseVRC_SceneDescriptorSpawnOrientation_SystemBoolean__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

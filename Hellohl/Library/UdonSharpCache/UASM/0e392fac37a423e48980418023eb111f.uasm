@@ -1,0 +1,112 @@
+.data_start
+
+    .export walkSpeed
+    .export runSpeed
+    .export jumpImpulse
+    .export gravityStrength
+    .export useLegacyLocomotion
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    useLegacyLocomotion: %SystemBoolean, null
+    gravityStrength: %SystemSingle, null
+    jumpImpulse: %SystemSingle, null
+    runSpeed: %SystemSingle, null
+    walkSpeed: %SystemSingle, null
+    __0_this_intnl_UnityEngineGameObject: %UnityEngineGameObject, this
+    __0_this_intnl_QvPenUdonWorldPlayerMods: %VRCUdonUdonBehaviour, this
+    __0_localPlayer_VRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+    __0_const_intnl_SystemObject: %SystemObject, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_const_intnl_VRCSDKBaseVRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+    __0_intnl_VRCSDKBaseVRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using VRC.SDKBase;
+        
+         #  namespace QvPen.Udon.World
+        
+         #  public class PlayerMods : UdonSharpBehaviour
+.code_start
+        
+         #  [SerializeField] private float walkSpeed = 2f;
+        
+         #  [SerializeField] private float runSpeed = 4f;
+        
+         #  [SerializeField] private float jumpImpulse = 3f;
+        
+         #  [SerializeField] private float gravityStrength = 1f;
+        
+         #  [SerializeField] private bool useLegacyLocomotion = false;
+        
+         #  private void Start()
+    .export _start
+        
+    _start:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  var localPlayer = Networking.LocalPlayer;
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        EXTERN, "VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi"
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        PUSH, __0_localPlayer_VRCPlayerApi
+        COPY
+        
+         #  if (localPlayer == null) return;
+        PUSH, __0_localPlayer_VRCPlayerApi
+        PUSH, __0_const_intnl_VRCSDKBaseVRCPlayerApi
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "SystemObject.__op_Equality__SystemObject_SystemObject__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000070
+        PUSH, __0_intnl_returnTarget_UInt32 # Explicit return sequence
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+         #  localPlayer.SetRunSpeed(runSpeed);
+        PUSH, __0_localPlayer_VRCPlayerApi
+        PUSH, runSpeed
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetRunSpeed__SystemSingle__SystemVoid"
+        
+         #  localPlayer.SetWalkSpeed(walkSpeed);
+        PUSH, __0_localPlayer_VRCPlayerApi
+        PUSH, walkSpeed
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetWalkSpeed__SystemSingle__SystemVoid"
+        
+         #  localPlayer.SetJumpImpulse(jumpImpulse);
+        PUSH, __0_localPlayer_VRCPlayerApi
+        PUSH, jumpImpulse
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetJumpImpulse__SystemSingle__SystemVoid"
+        
+         #  localPlayer.SetGravityStrength(gravityStrength);
+        PUSH, __0_localPlayer_VRCPlayerApi
+        PUSH, gravityStrength
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetGravityStrength__SystemSingle__SystemVoid"
+        
+         #  if (useLegacyLocomotion)
+        PUSH, useLegacyLocomotion
+        JUMP_IF_FALSE, 0x000000F0
+        
+         #  localPlayer.UseLegacyLocomotion();
+        PUSH, __0_localPlayer_VRCPlayerApi
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__UseLegacyLocomotion__SystemVoid"
+        
+         #  Destroy(gameObject);
+        PUSH, __0_this_intnl_UnityEngineGameObject
+        EXTERN, "UnityEngineObject.__Destroy__UnityEngineObject__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

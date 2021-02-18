@@ -1,0 +1,114 @@
+.data_start
+
+    .export scale
+    .export s_transform
+    .export scaleOnStart
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    scaleOnStart: %SystemBoolean, null
+    s_transform: %UnityEngineTransform, null
+    scale: %UnityEngineVector3, null
+    __0_this_intnl_UnityEngineTransform: %UnityEngineTransform, this
+    __0_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __1_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __1_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Set_Scale : UdonSharpBehaviour
+.code_start
+        
+         #  public Vector3 scale = Vector3.one;
+        
+         #  public Transform s_transform;
+        
+         #  public bool scaleOnStart = true;
+        
+         #  void Start()
+    .export _start
+        
+    _start:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (!s_transform)
+        PUSH, s_transform
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        PUSH, __1_intnl_SystemBoolean
+        EXTERN, "SystemBoolean.__op_UnaryNegation__SystemBoolean__SystemBoolean"
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x0000005C
+        
+         #  {
+        
+         #  s_transform = transform;
+        PUSH, __0_this_intnl_UnityEngineTransform
+        PUSH, s_transform
+        COPY
+        
+         #  if (scaleOnStart)
+        PUSH, scaleOnStart
+        JUMP_IF_FALSE, 0x0000007C
+        
+         #  {
+        
+         #  SetScale();
+        PUSH, __0_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x000000C4
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public virtual void Interact()
+    .export _interact
+        
+    _interact:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  SetScale();
+        PUSH, __1_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x000000C4
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void SetScale()
+    .export SetScale
+        
+    SetScale:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  s_transform.localScale = scale;
+        PUSH, s_transform
+        PUSH, scale
+        EXTERN, "UnityEngineTransform.__set_localScale__UnityEngineVector3__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

@@ -1,0 +1,117 @@
+.data_start
+
+    .export material
+    .export renderers
+    .export sharedMaterial
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    sharedMaterial: %SystemBoolean, null
+    material: %UnityEngineMaterial, null
+    renderers: %UnityEngineRendererArray, null
+    __0_mesh_Renderer: %UnityEngineRenderer, null
+    __0_const_intnl_SystemInt32: %SystemInt32, null
+    __1_const_intnl_SystemInt32: %SystemInt32, null
+    __0_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_SystemInt32: %SystemInt32, null
+    __1_intnl_SystemInt32: %SystemInt32, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Set_Material : UdonSharpBehaviour
+.code_start
+        
+         #  public Material material;
+        
+         #  public Renderer[] renderers;
+        
+         #  public bool sharedMaterial = true;
+        
+         #  public virtual void Interact()
+    .export _interact
+        
+    _interact:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  SetMaterial();
+        PUSH, __0_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x00000034
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void SetMaterial()
+    .export SetMaterial
+        
+    SetMaterial:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  foreach(Renderer mesh in renderers)
+        PUSH, __0_const_intnl_SystemInt32
+        PUSH, __0_intnl_SystemInt32
+        COPY
+        PUSH, renderers
+        PUSH, __1_intnl_SystemInt32
+        EXTERN, "UnityEngineRendererArray.__get_Length__SystemInt32"
+        PUSH, __0_intnl_SystemInt32
+        PUSH, __1_intnl_SystemInt32
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000120
+        PUSH, renderers
+        PUSH, __0_intnl_SystemInt32
+        PUSH, __0_mesh_Renderer
+        EXTERN, "SystemObjectArray.__Get__SystemInt32__SystemObject"
+        
+         #  {
+        
+         #  if (sharedMaterial)
+        PUSH, sharedMaterial
+        JUMP_IF_FALSE, 0x000000E0
+        
+         #  {
+        
+         #  mesh.sharedMaterial = material;
+        PUSH, __0_mesh_Renderer
+        PUSH, material
+        EXTERN, "UnityEngineRenderer.__set_sharedMaterial__UnityEngineMaterial__SystemVoid"
+        JUMP, 0x000000F8
+        
+         #  else
+        
+         #  {
+        
+         #  mesh.material = material;
+        PUSH, __0_mesh_Renderer
+        PUSH, material
+        EXTERN, "UnityEngineRenderer.__set_material__UnityEngineMaterial__SystemVoid"
+        PUSH, __0_intnl_SystemInt32
+        PUSH, __1_const_intnl_SystemInt32
+        PUSH, __0_intnl_SystemInt32
+        EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+        JUMP, 0x00000060
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

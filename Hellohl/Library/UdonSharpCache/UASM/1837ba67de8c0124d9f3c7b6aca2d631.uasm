@@ -1,0 +1,115 @@
+.data_start
+
+    .export transform
+    .export track
+    .export trackingDataType
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    track: %SystemBoolean, null
+    trackingDataType: %VRCSDKBaseVRCPlayerApiTrackingDataType, null
+    transform: %UnityEngineTransform, null
+    __0_this_intnl_Player_TrackingData: %VRCUdonUdonBehaviour, this
+    __0_trackdata_TrackingData: %VRCSDKBaseVRCPlayerApiTrackingData, null
+    __0_const_intnl_SystemObject: %SystemObject, null
+    __0_const_intnl_UnityEngineTransform: %UnityEngineTransform, null
+    __0_const_intnl_SystemType: %SystemType, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_UnityEngineQuaternion: %UnityEngineQuaternion, null
+    __0_intnl_UnityEngineTransform: %UnityEngineTransform, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+    __0_intnl_UnityEngineVector3: %UnityEngineVector3, null
+    __0_intnl_VRCSDKBaseVRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Player_TrackingData : UdonSharpBehaviour
+.code_start
+        
+         #  public Transform transform;
+        
+         #  public bool track = true;
+        
+         #  public VRCPlayerApi.TrackingDataType trackingDataType;
+        
+         #  void Start()
+    .export _start
+        
+    _start:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if(transform == null)
+        PUSH, transform
+        PUSH, __0_const_intnl_UnityEngineTransform
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Equality__UnityEngineObject_UnityEngineObject__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000070
+        
+         #  {
+        
+         #  transform = GetComponent<Transform>();
+        PUSH, __0_this_intnl_Player_TrackingData
+        PUSH, __0_intnl_UnityEngineTransform
+        EXTERN, "UnityEngineComponent.__get_transform__UnityEngineTransform" # GetComponent strongbox mismatch fix
+        PUSH, __0_intnl_UnityEngineTransform
+        PUSH, __0_const_intnl_SystemType
+        PUSH, transform
+        EXTERN, "UnityEngineTransform.__GetComponent__T"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  private void Update()
+    .export _update
+        
+    _update:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (track)
+        PUSH, track
+        JUMP_IF_FALSE, 0x0000011C
+        
+         #  {
+        
+         #  VRCPlayerApi.TrackingData trackdata = Networking.LocalPlayer.GetTrackingData(trackingDataType);
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        EXTERN, "VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi"
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        PUSH, trackingDataType
+        PUSH, __0_trackdata_TrackingData
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__GetTrackingData__VRCSDKBaseVRCPlayerApiTrackingDataType__VRCSDKBaseVRCPlayerApiTrackingData"
+        
+         #  transform.SetPositionAndRotation(trackdata.position, trackdata.rotation);
+        PUSH, __0_trackdata_TrackingData
+        PUSH, __0_intnl_UnityEngineVector3
+        EXTERN, "VRCSDKBaseVRCPlayerApiTrackingData.__get_position__UnityEngineVector3"
+        PUSH, __0_trackdata_TrackingData
+        PUSH, __0_intnl_UnityEngineQuaternion
+        EXTERN, "VRCSDKBaseVRCPlayerApiTrackingData.__get_rotation__UnityEngineQuaternion"
+        PUSH, transform
+        PUSH, __0_intnl_UnityEngineVector3
+        PUSH, __0_intnl_UnityEngineQuaternion
+        EXTERN, "UnityEngineTransform.__SetPositionAndRotation__UnityEngineVector3_UnityEngineQuaternion__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

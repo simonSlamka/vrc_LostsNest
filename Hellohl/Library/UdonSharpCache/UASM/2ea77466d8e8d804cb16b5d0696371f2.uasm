@@ -1,0 +1,219 @@
+.data_start
+
+    .export jumpImpulse
+    .export walkSpeed
+    .export strafeSpeed
+    .export runSpeed
+    .export gravityStrength
+    .export legacyLocomotion
+    .export setOnStart
+    .export zoneExitReset
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    legacyLocomotion: %SystemBoolean, null
+    setOnStart: %SystemBoolean, null
+    gravityStrength: %SystemSingle, null
+    jumpImpulse: %SystemSingle, null
+    runSpeed: %SystemSingle, null
+    strafeSpeed: %SystemSingle, null
+    walkSpeed: %SystemSingle, null
+    zoneExitReset: %VRCUdonUdonBehaviour, null
+    onPlayerTriggerEnterPlayer: %VRCSDKBaseVRCPlayerApi, null
+    onPlayerTriggerExitPlayer: %VRCSDKBaseVRCPlayerApi, null
+    __0_localuser_VRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+    __0_mp_player_VRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+    __1_mp_player_VRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+    __0_const_intnl_SystemString: %SystemString, null
+    __0_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __1_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __1_intnl_SystemBoolean: %SystemBoolean, null
+    __2_intnl_SystemBoolean: %SystemBoolean, null
+    __3_intnl_SystemBoolean: %SystemBoolean, null
+    __4_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+    __0_intnl_VRCSDKBaseVRCPlayerApi: %VRCSDKBaseVRCPlayerApi, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Player_Movement_settings : UdonSharpBehaviour
+.code_start
+        
+         #  public float jumpImpulse = 3;
+        
+         #  public float walkSpeed = 2;
+        
+         #  public float strafeSpeed = 2;
+        
+         #  public float runSpeed = 4;
+        
+         #  public float gravityStrength = 1;
+        
+         #  public bool legacyLocomotion = false;
+        
+         #  public bool setOnStart = true;
+        
+         #  public Player_Movement_settings zoneExitReset;
+        
+         #  void Start()
+    .export _start
+        
+    _start:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (setOnStart)
+        PUSH, setOnStart
+        JUMP_IF_FALSE, 0x00000058
+        
+         #  {
+        
+         #  SetMovement();
+        PUSH, __0_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x00000074
+        
+         #  if (legacyLocomotion)
+        PUSH, legacyLocomotion
+        JUMP_IF_FALSE, 0x00000058
+        
+         #  {
+        
+         #  Networking.LocalPlayer.UseLegacyLocomotion();
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        EXTERN, "VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi"
+        PUSH, __0_intnl_VRCSDKBaseVRCPlayerApi
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__UseLegacyLocomotion__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void SetMovement()
+    .export SetMovement
+        
+    SetMovement:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  VRCPlayerApi localuser = Networking.LocalPlayer;
+        PUSH, __0_localuser_VRCPlayerApi
+        EXTERN, "VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi"
+        
+         #  localuser.SetJumpImpulse(jumpImpulse);
+        PUSH, __0_localuser_VRCPlayerApi
+        PUSH, jumpImpulse
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetJumpImpulse__SystemSingle__SystemVoid"
+        
+         #  localuser.SetWalkSpeed(walkSpeed);
+        PUSH, __0_localuser_VRCPlayerApi
+        PUSH, walkSpeed
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetWalkSpeed__SystemSingle__SystemVoid"
+        
+         #  localuser.SetStrafeSpeed(strafeSpeed);
+        PUSH, __0_localuser_VRCPlayerApi
+        PUSH, strafeSpeed
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetStrafeSpeed__SystemSingle__SystemVoid"
+        
+         #  localuser.SetRunSpeed(runSpeed);
+        PUSH, __0_localuser_VRCPlayerApi
+        PUSH, runSpeed
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetRunSpeed__SystemSingle__SystemVoid"
+        
+         #  localuser.SetGravityStrength(gravityStrength);
+        PUSH, __0_localuser_VRCPlayerApi
+        PUSH, gravityStrength
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__SetGravityStrength__SystemSingle__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public virtual void OnPlayerTriggerEnter(VRC.SDKBase.VRCPlayerApi player)
+    .export _onPlayerTriggerEnter
+        
+    _onPlayerTriggerEnter:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        PUSH, onPlayerTriggerEnterPlayer
+        PUSH, __0_mp_player_VRCPlayerApi
+        COPY
+        
+         #  {
+        
+         #  if (player.isLocal)
+        PUSH, __0_mp_player_VRCPlayerApi
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__get_isLocal__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000164
+        
+         #  {
+        
+         #  SetMovement();
+        PUSH, __1_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x00000074
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public virtual void OnPlayerTriggerExit(VRC.SDKBase.VRCPlayerApi player)
+    .export _onPlayerTriggerExit
+        
+    _onPlayerTriggerExit:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        PUSH, onPlayerTriggerExitPlayer
+        PUSH, __1_mp_player_VRCPlayerApi
+        COPY
+        
+         #  {
+        
+         #  if(player.isLocal && zoneExitReset)
+        PUSH, __1_mp_player_VRCPlayerApi
+        PUSH, __2_intnl_SystemBoolean
+        EXTERN, "VRCSDKBaseVRCPlayerApi.__get_isLocal__SystemBoolean"
+        PUSH, __2_intnl_SystemBoolean
+        PUSH, __1_intnl_SystemBoolean
+        COPY
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x0000021C
+        PUSH, zoneExitReset
+        PUSH, __3_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __1_intnl_SystemBoolean
+        PUSH, __3_intnl_SystemBoolean
+        PUSH, __4_intnl_SystemBoolean
+        EXTERN, "SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean"
+        PUSH, __4_intnl_SystemBoolean
+        PUSH, __1_intnl_SystemBoolean
+        COPY
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000244
+        
+         #  {
+        
+         #  zoneExitReset.SetMovement();
+        PUSH, zoneExitReset
+        PUSH, __0_const_intnl_SystemString
+        EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

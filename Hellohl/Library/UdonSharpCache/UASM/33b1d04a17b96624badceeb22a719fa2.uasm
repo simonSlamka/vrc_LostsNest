@@ -1,0 +1,122 @@
+.data_start
+
+    .export layer
+    .export dropdown
+    .export gameobjects
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    dropdown: %UnityEngineUIDropdown, null
+    gameobjects: %UnityEngineGameObjectArray, null
+    layer: %SystemInt32, null
+    __0_i_Int32: %SystemInt32, null
+    __0_const_intnl_SystemInt32: %SystemInt32, null
+    __1_const_intnl_SystemInt32: %SystemInt32, null
+    __0_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __1_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_UnityEngineGameObject: %UnityEngineGameObject, null
+    __0_intnl_SystemInt32: %SystemInt32, null
+    __1_intnl_SystemInt32: %SystemInt32, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using UnityEngine.UI; //needs to be added to interact with unity ui components.
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Set_Layer : UdonSharpBehaviour
+.code_start
+        
+         #  public int layer;
+        
+         #  public Dropdown dropdown;
+        
+         #  public GameObject[] gameobjects;
+        
+         #  public virtual void Interact()
+    .export _interact
+        
+    _interact:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  SetLayer();
+        PUSH, __0_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x00000034
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void SetLayer()
+    .export SetLayer
+        
+    SetLayer:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (dropdown)
+        PUSH, dropdown
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000074
+        
+         #  {
+        
+         #  layer = dropdown.value;
+        PUSH, dropdown
+        PUSH, layer
+        EXTERN, "UnityEngineUIDropdown.__get_value__SystemInt32"
+        
+         #  for (int i = 0; i < gameobjects.Length; i++)
+        PUSH, __0_const_intnl_SystemInt32
+        PUSH, __0_i_Int32
+        COPY
+        PUSH, gameobjects
+        PUSH, __0_intnl_SystemInt32
+        EXTERN, "UnityEngineGameObjectArray.__get_Length__SystemInt32"
+        PUSH, __0_i_Int32
+        PUSH, __0_intnl_SystemInt32
+        PUSH, __1_intnl_SystemBoolean
+        EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000144
+        
+         #  {
+        
+         #  gameobjects[i].layer = layer;
+        PUSH, gameobjects
+        PUSH, __0_i_Int32
+        PUSH, __0_intnl_UnityEngineGameObject
+        EXTERN, "SystemObjectArray.__Get__SystemInt32__SystemObject"
+        PUSH, __0_intnl_UnityEngineGameObject
+        PUSH, layer
+        EXTERN, "UnityEngineGameObject.__set_layer__SystemInt32__SystemVoid"
+        PUSH, __0_i_Int32
+        PUSH, __1_intnl_SystemInt32
+        COPY
+        PUSH, __0_i_Int32
+        PUSH, __1_const_intnl_SystemInt32
+        PUSH, __0_i_Int32
+        EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+        JUMP, 0x00000088
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end

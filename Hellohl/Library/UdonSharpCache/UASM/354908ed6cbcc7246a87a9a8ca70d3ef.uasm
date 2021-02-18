@@ -1,0 +1,392 @@
+.data_start
+
+    .export udonBehaviour
+    .export variableName
+    .export value
+    .export getOnStart
+    .export step
+    .export format
+    .export display
+    .export slider
+
+    __refl_const_intnl_udonTypeID: %SystemInt64, null
+    __refl_const_intnl_udonTypeName: %SystemString, null
+    getOnStart: %SystemBoolean, null
+    step: %SystemSingle, null
+    value: %SystemSingle, null
+    slider: %UnityEngineUISlider, null
+    format: %SystemString, null
+    variableName: %SystemString, null
+    display: %UnityEngineUIText, null
+    udonBehaviour: %VRCUdonUdonBehaviour, null
+    sliderInitialize: %SystemBoolean, null
+    originalValue: %SystemSingle, null
+    __0_const_intnl_SystemBoolean: %SystemBoolean, null
+    __1_const_intnl_SystemBoolean: %SystemBoolean, null
+    __0_const_intnl_SystemInt32: %SystemInt32, null
+    __0_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_const_intnl_SystemUInt32: %SystemUInt32, null
+    __1_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __2_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __3_const_intnl_exitJumpLoc_UInt32: %SystemUInt32, null
+    __0_intnl_SystemBoolean: %SystemBoolean, null
+    __1_intnl_SystemBoolean: %SystemBoolean, null
+    __2_intnl_SystemBoolean: %SystemBoolean, null
+    __3_intnl_SystemBoolean: %SystemBoolean, null
+    __4_intnl_SystemBoolean: %SystemBoolean, null
+    __5_intnl_SystemBoolean: %SystemBoolean, null
+    __6_intnl_SystemBoolean: %SystemBoolean, null
+    __7_intnl_SystemBoolean: %SystemBoolean, null
+    __0_intnl_SystemObject: %SystemObject, null
+    __0_intnl_SystemSingle: %SystemSingle, null
+    __1_intnl_SystemSingle: %SystemSingle, null
+    __2_intnl_SystemSingle: %SystemSingle, null
+    __3_intnl_SystemSingle: %SystemSingle, null
+    __4_intnl_SystemSingle: %SystemSingle, null
+    __0_intnl_SystemString: %SystemString, null
+    __1_intnl_SystemString: %SystemString, null
+    __0_intnl_returnTarget_UInt32: %SystemUInt32, null
+
+.data_end
+
+        
+         #  using UdonSharp;
+        
+         #  using UnityEngine;
+        
+         #  using UnityEngine.UI;
+        
+         #  using VRC.SDKBase;
+        
+         #  using VRC.Udon;
+        
+         #  public class Set_Float : UdonSharpBehaviour
+.code_start
+        
+         #  public UdonBehaviour udonBehaviour;
+        
+         #  public string variableName;
+        
+         #  public float value;
+        
+         #  public bool getOnStart = false;
+        
+         #  public float step = 1f;
+        
+         #  public string format = "0.00";
+        
+         #  public Text display;
+        
+         #  public Slider slider;
+        
+         #  private float originalValue;
+        
+         #  private bool sliderInitialize = false;
+        
+         #  void Start()
+    .export _start
+        
+    _start:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (getOnStart)
+        PUSH, getOnStart
+        JUMP_IF_FALSE, 0x00000094
+        
+         #  {
+        
+         #  if (udonBehaviour)
+        PUSH, udonBehaviour
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000078
+        
+         #  {
+        
+         #  originalValue = (float)udonBehaviour.GetProgramVariable(variableName);
+        PUSH, udonBehaviour
+        PUSH, variableName
+        PUSH, __0_intnl_SystemObject
+        EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject"
+        PUSH, __0_intnl_SystemObject
+        PUSH, originalValue
+        EXTERN, "SystemConvert.__ToSingle__SystemObject__SystemSingle"
+        
+         #  value = originalValue;
+        PUSH, originalValue
+        PUSH, value
+        COPY
+        JUMP, 0x000000A8
+        
+         #  else
+        
+         #  {
+        
+         #  originalValue = value;
+        PUSH, value
+        PUSH, originalValue
+        COPY
+        
+         #  if (display)
+        PUSH, display
+        PUSH, __0_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __0_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000108
+        
+         #  {
+        
+         #  display.text = value.ToString(format);
+        PUSH, value
+        PUSH, format
+        PUSH, __0_intnl_SystemString
+        EXTERN, "SystemSingle.__ToString__SystemString__SystemString"
+        PUSH, display
+        PUSH, __0_intnl_SystemString
+        EXTERN, "UnityEngineUIText.__set_text__SystemString__SystemVoid"
+        
+         #  if (slider)
+        PUSH, slider
+        PUSH, __1_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __1_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x0000015C
+        
+         #  {
+        
+         #  slider.value = value;
+        PUSH, slider
+        PUSH, value
+        EXTERN, "UnityEngineUISlider.__set_value__SystemSingle__SystemVoid"
+        
+         #  sliderInitialize = true;
+        PUSH, __0_const_intnl_SystemBoolean
+        PUSH, sliderInitialize
+        COPY
+        
+         #  if (0 > step)
+        PUSH, __0_const_intnl_SystemInt32
+        PUSH, __0_intnl_SystemSingle
+        EXTERN, "SystemConvert.__ToSingle__SystemInt32__SystemSingle"
+        PUSH, __0_intnl_SystemSingle
+        PUSH, step
+        PUSH, __2_intnl_SystemBoolean
+        EXTERN, "SystemSingle.__op_GreaterThan__SystemSingle_SystemSingle__SystemBoolean"
+        PUSH, __2_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000001D0
+        
+         #  {
+        
+         #  step = Mathf.Abs(step);
+        PUSH, step
+        PUSH, step
+        PUSH, __1_intnl_SystemSingle
+        COPY #  Copy-on-write symbol value dirtied
+        PUSH, step
+        EXTERN, "UnityEngineMathf.__Abs__SystemSingle__SystemSingle"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void SetFloat()
+    .export SetFloat
+        
+    SetFloat:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (udonBehaviour)
+        PUSH, udonBehaviour
+        PUSH, __3_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __3_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000234
+        
+         #  {
+        
+         #  udonBehaviour.SetProgramVariable(variableName, value);
+        PUSH, udonBehaviour
+        PUSH, variableName
+        PUSH, value
+        EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__SetProgramVariable__SystemString_SystemObject__SystemVoid"
+        
+         #  if (slider)
+        PUSH, slider
+        PUSH, __4_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __4_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000002E4
+        
+         #  {
+        
+         #  if (slider.value != value)
+        PUSH, slider
+        PUSH, __2_intnl_SystemSingle
+        EXTERN, "UnityEngineUISlider.__get_value__SystemSingle"
+        PUSH, __2_intnl_SystemSingle
+        PUSH, value
+        PUSH, __5_intnl_SystemBoolean
+        EXTERN, "SystemSingle.__op_Inequality__SystemSingle_SystemSingle__SystemBoolean"
+        PUSH, __5_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000002E4
+        
+         #  {
+        
+         #  sliderInitialize = false;
+        PUSH, __1_const_intnl_SystemBoolean
+        PUSH, sliderInitialize
+        COPY
+        
+         #  slider.value = value;
+        PUSH, slider
+        PUSH, value
+        EXTERN, "UnityEngineUISlider.__set_value__SystemSingle__SystemVoid"
+        
+         #  sliderInitialize = true;
+        PUSH, __0_const_intnl_SystemBoolean
+        PUSH, sliderInitialize
+        COPY
+        
+         #  if (display)
+        PUSH, display
+        PUSH, __5_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __5_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x00000344
+        
+         #  {
+        
+         #  display.text = value.ToString(format);
+        PUSH, value
+        PUSH, format
+        PUSH, __1_intnl_SystemString
+        EXTERN, "SystemSingle.__ToString__SystemString__SystemString"
+        PUSH, display
+        PUSH, __1_intnl_SystemString
+        EXTERN, "UnityEngineUIText.__set_text__SystemString__SystemVoid"
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void Increase()
+    .export Increase
+        
+    Increase:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  value += step;
+        PUSH, value
+        PUSH, step
+        PUSH, __3_intnl_SystemSingle
+        EXTERN, "SystemSingle.__op_Addition__SystemSingle_SystemSingle__SystemSingle"
+        PUSH, __3_intnl_SystemSingle
+        PUSH, value
+        COPY
+        
+         #  SetFloat();
+        PUSH, __0_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x000001EC
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void Decrease()
+    .export Decrease
+        
+    Decrease:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  value -= step;
+        PUSH, value
+        PUSH, step
+        PUSH, __4_intnl_SystemSingle
+        EXTERN, "SystemSingle.__op_Subtraction__SystemSingle_SystemSingle__SystemSingle"
+        PUSH, __4_intnl_SystemSingle
+        PUSH, value
+        COPY
+        
+         #  SetFloat();
+        PUSH, __1_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x000001EC
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void ResetValue()
+    .export ResetValue
+        
+    ResetValue:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  value = originalValue;
+        PUSH, originalValue
+        PUSH, value
+        COPY
+        
+         #  SetFloat();
+        PUSH, __2_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x000001EC
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+        
+         #  public void SetSlider()
+    .export SetSlider
+        
+    SetSlider:
+        
+        PUSH, __0_const_intnl_SystemUInt32
+        
+         #  {
+        
+         #  if (slider && sliderInitialize)
+        PUSH, slider
+        PUSH, __6_intnl_SystemBoolean
+        EXTERN, "UnityEngineObject.__op_Implicit__UnityEngineObject__SystemBoolean"
+        PUSH, __6_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000004BC
+        PUSH, __6_intnl_SystemBoolean
+        PUSH, sliderInitialize
+        PUSH, __7_intnl_SystemBoolean
+        EXTERN, "SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean"
+        PUSH, __7_intnl_SystemBoolean
+        PUSH, __6_intnl_SystemBoolean
+        COPY
+        PUSH, __6_intnl_SystemBoolean
+        JUMP_IF_FALSE, 0x000004F4
+        
+         #  {
+        
+         #  value = slider.value;
+        PUSH, slider
+        PUSH, value
+        EXTERN, "UnityEngineUISlider.__get_value__SystemSingle"
+        
+         #  SetFloat();
+        PUSH, __3_const_intnl_exitJumpLoc_UInt32
+        JUMP, 0x000001EC
+        PUSH, __0_intnl_returnTarget_UInt32 # Function epilogue
+        COPY
+        JUMP_INDIRECT, __0_intnl_returnTarget_UInt32
+        
+.code_end
